@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GR FINANCE | Sistem Pengelola Keuangan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Background transparan untuk membiarkan waves terlihat */
+            --bg-main: transparent; 
+            /* Kartu semi-transparan */
+            --bg-card: rgba(0, 0, 0, 0.4); 
+            --accent-primary: #ff5a00;
+            --accent-red: #cc0000;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        html {
+            background-color: #000; /* Fallback color */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: white;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Red Waves Global Background - Exact Recreation */
+        .bg-waves-container {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: #000;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* The glowing red glow in the corner */
+        .bg-waves-container::before {
+            content: "";
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 90%;
+            height: 90%;
+            background: radial-gradient(circle at bottom right, rgba(204, 0, 0, 0.35) 0%, rgba(102, 0, 0, 0.1) 40%, transparent 70%);
+            filter: blur(80px);
+            z-index: 1;
+        }
+
+        /* Curved Red Ribs simulation */
+        .bg-waves-ribs {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+        }
+
+        .rib {
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 160%;
+            height: 160%;
+            border-radius: 50%;
+            border-right: 2px solid rgba(220, 20, 20, 0.6);
+            box-shadow: 10px 0 40px rgba(204, 0, 0, 0.2);
+            transform-origin: bottom right;
+            opacity: 0.8;
+        }
+
+        .rib-1 { transform: rotate(8deg) scale(0.95); border-right-width: 4px; border-color: rgba(255, 30, 30, 0.8); }
+        .rib-2 { transform: rotate(14deg) scale(0.9); border-right-width: 2px; border-color: rgba(204, 0, 0, 0.5); }
+        .rib-3 { transform: rotate(22deg) scale(0.85); border-right-width: 5px; border-color: rgba(180, 0, 0, 0.4); }
+        .rib-4 { transform: rotate(28deg) scale(0.8); border-right-width: 3px; border-color: rgba(220, 50, 50, 0.3); }
+        .rib-5 { transform: rotate(35deg) scale(0.75); border-right-width: 6px; border-color: rgba(150, 0, 0, 0.2); }
+
+        .heading-font { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+        .professional-card {
+            background-color: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .professional-card:hover {
+            border-color: rgba(255, 90, 0, 0.3);
+            background-color: rgba(20, 20, 20, 0.6);
+            transform: translateY(-2px);
+        }
+
+        input, select, textarea {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent-primary) !important;
+            background-color: rgba(0, 0, 0, 0.7) !important;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+
+        @media print {
+            .bg-waves-container { display: none; }
+            body { background-color: white; color: black; }
+            .professional-card { background: none; border: none; box-shadow: none; backdrop-filter: none; }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
+  }
+}
+</script>
+</head>
+<body>
+    <div class="bg-waves-container">
+        <div class="bg-waves-ribs">
+            <div class="rib rib-1"></div>
+            <div class="rib rib-2"></div>
+            <div class="rib rib-3"></div>
+            <div class="rib rib-4"></div>
+            <div class="rib rib-5"></div>
+        </div>
+    </div>
+    <div id="root"></div>
+</body>
+</html>
